@@ -1,212 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfoCOM</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body data-bs-theme="dark" onload="draw_map()">
+
+<body data-bs-theme="dark" onload="draw_map()" style="background-color: #17191b;">
     <section>
         <h3 class="text-center text-warning m-1">RDO KG Painel Informativo</h3>
         <article class="container-fluid ">
 
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map" type="button" role="tab" aria-controls="nav-map" aria-selected="true">Mapa</button>
-                    <button class="nav-link " id="nav-freq-tab" data-bs-toggle="tab" data-bs-target="#nav-freq" type="button" role="tab" aria-controls="nav-freq" aria-selected="false">Coordenação</button>
-                    <button class="nav-link" id="nav-caop-tab" data-bs-toggle="tab" data-bs-target="#nav-caop" type="button" role="tab" aria-controls="nav-caop" aria-selected="false">CAOP 30-8</button>
+                    <button class="nav-link active" id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map"
+                        type="button" role="tab" aria-controls="nav-map" aria-selected="true">Mapa</button>
+                    <button class="nav-link  " id="nav-freq-tab" data-bs-toggle="tab" data-bs-target="#nav-freq"
+                        type="button" role="tab" aria-controls="nav-freq" aria-selected="false" onclick="loadingData()">Coordenação</button>
+                    <button class="nav-link" id="nav-caop-tab" data-bs-toggle="tab" data-bs-target="#nav-caop"
+                        type="button" role="tab" aria-controls="nav-caop" aria-selected="false">CAOP 30-8</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab" tabindex="0">
                     <div class="container-fluid">
                         <div class="d-flex justify-content-center">
-                            <canvas id="canvas" width="600" height="500"  class="border rounded-2 m-1">
+                            <canvas id="canvas" width="600" height="500" class="border rounded-2 m-1">
                                 Desculpe-me, seu navegador não suporta o elemento HTML5 &lt;canvas&gt;.
-                            </canvas> 
+                            </canvas>
                         </div>
                         <div class="container-fluid">
                             <div id="liveAlertPlaceholder"></div>
                             <div class="d-flex flex-wrap justify-content-center">
-                            <div class="col-2 p-2">
-                                <input type="number" class="form-control form-control-sm container" id="inputQDR" placeholder="QDR" maxlength="3" onchange="drawQdr()">
+                                <div class="col-2 p-2">
+                                    <input type="number" class="form-control form-control-sm container" id="inputQDR"
+                                        placeholder="QDR" maxlength="3" onchange="drawQdr()">
+                                </div>
+                                <button type="button" class="btn btn-outline-warning m-1 btn-sm" id="locate"
+                                    onclick="reset()">LIMPAR</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(219, 'SBAR')">SBAR</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(345, 'SBFZ')">SBFZ</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(226, 'SBGL')">SBGL</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(233, 'SBGR')">SBGR</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(104, 'SBJP')">SBJP</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(293, 'SBJU')">SBJU</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(199, 'SBMO')">SBMO</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(345, 'SBMS')">SBMS</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(266, 'SBPL')">SBPL</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(155, 'SBRF')">SBRF</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(41, 'SBSG')">SBSG</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(226, 'SBSV')">SBSV</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(140, 'SIFC')">SIFC</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(47, 'SJBX')">SJBX</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(47, 'SJFU')">SJFU</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(302, 'SJZA')">SJZA</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(335, 'SNKB')">SNKB</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(209, 'SNRU')">SNRU</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(302, 'SNTS')">SNTS</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(302, 'SNQD')">SNQD</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(98, 'SNWE')">SNWE</button>
                             </div>
-                            <button type="button" class="btn btn-outline-warning m-1 btn-sm" id="locate" onclick="reset()">LIMPAR</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(219, 'SBAR')">SBAR</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(345, 'SBFZ')">SBFZ</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(226, 'SBGL')">SBGL</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(233, 'SBGR')">SBGR</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(104, 'SBJP')">SBJP</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(293, 'SBJU')">SBJU</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(199, 'SBMO')">SBMO</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(345, 'SBMS')">SBMS</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(266, 'SBPL')">SBPL</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(155, 'SBRF')">SBRF</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(41, 'SBSG')">SBSG</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(226, 'SBSV')">SBSV</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(140, 'SIFC')">SIFC</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(47, 'SJBX')">SJBX</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(47, 'SJFU')">SJFU</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(302, 'SJZA')">SJZA</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(335, 'SNKB')">SNKB</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(209, 'SNRU')">SNRU</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(302, 'SNTS')">SNTS</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(302, 'SNQD')">SNQD</button>
-                            <button type="button" class="btn btn-outline-light m-1" id="locate" onclick="drawLine(98, 'SNWE')">SNWE</button>
-                        </div>   
                         </div>
                     </div>
                 </div>
-                
-                <div class="tab-pane fade " id="nav-freq" role="tabpanel" aria-labelledby="nav-freq-tab" tabindex="0">
-                    <div class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                        <div class="col "><h4>ACC-RE</h4></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Frequências S-4</h7><h6>128.7 <br> 134.8</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">TF-2</h7><h6>3210<br>3211</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8204 / 8208 <br> 2129-8707 (Sup.)</h6></div>
+
+                <div class="tab-pane fade " id="nav-freq" role="tabpanel" aria-labelledby="nav-freq-tab"
+                    tabindex="0">
+                    <div
+                        class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
+                        <div class="col ">
+                            <h4 class="text-danger">ACC-RE</h4>
+                        </div>
+                        <div id="accre" class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Frequências S-4</h7><br><a id="accref1"
+                                class="freq btn border p-1 m-1 btn-outline-warning" onclick="saveData(this)">128.7</a><a
+                                id="accref2" class="freq btn border p-1 m-1 btn-outline-light"
+                                onclick="saveData(this)">134.8</a>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">TF-2</h7>
+                            <h6>3210<br>3211</h6>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                            <h6>2129-8204 / 8208 <br> 2129-8707 (Sup.)</h6>
+                        </div>
                     </div>
-                    <div class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                        <div class="col "><h4>APP-RF</h4></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Frequências</h7><h6>129.6 <br> 129.2 <br></h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">TF-2</h7><h6>3231 <br> 3232</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8099 <br> 2129-8364 (Sup.)</h6></div>
+                    <div
+                        class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
+                        <div class="col ">
+                            <h4 class="text-danger">APP-RF</h4>
+                        </div>
+                        <div id="apprf" class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Frequências</h7><br><a id="apprf1"
+                                class="freq btn border p-1 m-1 btn-outline-warning" onclick="saveData(this)">129.6</a><a
+                                id="apprf2" class="freq btn border p-1 m-1 btn-outline-light"
+                                onclick="saveData(this)">129.2</a>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">TF-2</h7>
+                            <h6>3231 <br> 3232</h6>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                            <h6>2129-8099 <br> 2129-8364 (Sup.)</h6>
+                        </div>
                     </div>
-                    <div class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                        <div class="col "><h4>FIS</h4><h7 class="text-secondary-emphasis">DLY 0900/2100Z</h7></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Frequências</h7><h6>123.275 <br> 123.625 (Setor S)</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">TF-2</h7><h6>3204</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8202 / 1904 / 8388</h6></div>
+                    <div
+                        class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
+                        <div class="col ">
+                            <h4 class="text-danger">FIS</h4>
+                            <h7 class="text-secondary-emphasis">DLY 0900/2100Z</h7>
+                        </div>
+                        <div id="fis" class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Frequências</h7><br><a
+                                class="freq btn border p-1 m-1 btn-outline-warning" id="fis1"
+                                onclick="saveData(this)">123.275</a><a class="freq btn border p-1 m-1 btn-outline-light"
+                                id="fis2" onclick="saveData(this)">123.625 (Setor S)</a>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">TF-2</h7>
+                            <h6>3204</h6>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                            <h6>2129-8202 / 1904 / 8388</h6>
+                        </div>
                     </div>
-                    <div class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                        <div class="col "><h4>APP-NT</h4></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Frequências</h7><h6>119.30 <br> 119.65 <br> 129.80</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">TF-2</h7><h6>3 071 221<br>3 071 222</h6></div>
+                    <div
+                        class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
+                        <div class="col ">
+                            <h4 class="text-danger">APP-NT</h4>
+                        </div>
+                        <div id="appnt" class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Frequências</h7><br><a
+                                class="freq btn border p-1 m-1 btn-outline-warning" id="appnt1"
+                                onclick="saveData(this)">119.30</a><a class="freq btn border p-1 m-1 btn-outline-light"
+                                id="appnt2" onclick="saveData(this)">119.65</a><a
+                                class="freq btn border p-1 m-1 btn-outline-light" id="appnt3"
+                                onclick="saveData(this)">129.80</a>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">TF-2</h7>
+                            <h6>3 071 221<br>3 071 222</h6>
+                        </div>
                     </div>
-                    <div class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                        <div class="col "><h4>TWR-JP</h4></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Frequências</h7><h6>118.30</h6></div>
-                        <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">TF-2</h7><h6>260</h6></div>
+                    <div
+                        class="row align-items-center text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
+                        <div class="col ">
+                            <h4 class="text-danger">TWR-JP</h4>
+                        </div>
+                        <div id="twrjp" class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">Frequências</h7><br><a
+                                class="freq btn border p-1 m-1 btn-outline-warning" id="twrjp1"
+                                onclick="saveData(this)">118.30</a>
+                        </div>
+                        <div class="col border rounded-2 m-1 p-1">
+                            <h7 class="text-secondary-emphasis">TF-2</h7>
+                            <h6>260</h6>
+                        </div>
                     </div>
                     <div class="d-flex align-items-start justify-content-center">
                         <div class="row text-center border border-2 border-warning-subtle rounded-2 m-2 p-1">
-                            <div class=""><h6>APP-MO</h6></div>
-                            <div class=" border rounded-2"><h7 class="text-secondary-emphasis">Frequências</h7><h6>128.90 <br> 119.25</h6></div>
+                            <div class="">
+                                <h6 class="text-danger">APP-MO</h6>
+                            </div>
+                            <div id="appmo" class=" border rounded-2">
+                                <h7 class="text-secondary-emphasis">Frequências</h7><br><a
+                                    class="freq btn border p-1 m-1 btn-outline-warning" id="appmo1"
+                                    onclick="saveData(this)">128.90</a><a class="freq btn border p-1 m-1 btn-outline-light"
+                                    id="appmo2" onclick="saveData(this)">119.25</a>
+                            </div>
                         </div>
                         <div class="row text-center border border-2 border-warning-subtle rounded-2 m-1 p-1">
-                            <div class=""><h6>Defesa Aérea</h6></div>
-                            <div class=" border rounded-2"><h7 class="text-secondary-emphasis">TF-2</h7><h6>240 / 241 / 242</h6></div>
-                            <div class=" border rounded-2"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8110</h6></div>
+                            <div class="">
+                                <h6 class="text-danger">Defesa Aérea</h6>
+                            </div>
+                            <div class=" border rounded-2">
+                                <h7 class="text-secondary-emphasis">TF-2</h7>
+                                <h6>240 / 241 / 242</h6>
+                            </div>
+                            <div class=" border rounded-2">
+                                <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                                <h6>2129-8110</h6>
+                            </div>
                         </div>
                         <div class="row text-center border border-2 border-warning-subtle rounded-2 m-1 p-1">
-                            <div class=""><h6>FMC</h6></div>
-                            <div class=" border rounded-2"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8101</h6></div>
+                            <div class="">
+                                <h6 class="text-danger">FMC</h6>
+                            </div>
+                            <div class=" border rounded-2">
+                                <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                                <h6>2129-8101</h6>
+                            </div>
                         </div>
                         <div class="row text-center border border-2 border-warning-subtle rounded-2 m-1 p-1">
-                            <div class=""><h6>CAIS-RF</h6></div>
-                            <div class=" border rounded-2"><h7 class="text-secondary-emphasis">Telefones (81)</h7><h6>2129-8216 / 8232 / 8215 <br> 0800-77740</h6></div>
+                            <div class="">
+                                <h6 class="text-danger">CAIS-RF</h6>
+                            </div>
+                            <div class=" border rounded-2">
+                                <h7 class="text-secondary-emphasis">Telefones (81)</h7>
+                                <h6>2129-8216 / 8232 / 8215 <br> 0800-77740</h6>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="tab-pane fade" id="nav-caop" role="tabpanel" aria-labelledby="nav-caop-tab" tabindex="0">
                     <div class="d-flex align-items-start border rounded-3 p-3 m-1">
-                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-acaua01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-acaua01" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Acauã_01</button>
-                            <button class="nav-link" id="v-pills-acaua02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-acaua02" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Acauã_02</button>
-                            <button class="nav-link" id="v-pills-acaua03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-acaua03" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Acauã_03</button>
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-acaua01-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-acaua01" type="button" role="tab" aria-controls="v-pills-home"
+                                aria-selected="true">Acauã_01</button>
+                            <button class="nav-link" id="v-pills-acaua02-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-acaua02" type="button" role="tab"
+                                aria-controls="v-pills-profile" aria-selected="false">Acauã_02</button>
+                            <button class="nav-link" id="v-pills-acaua03-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-acaua03" type="button" role="tab"
+                                aria-controls="v-pills-messages" aria-selected="false">Acauã_03</button>
                         </div>
                         <div class="container tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-acaua01" role="tabpanel" aria-labelledby="v-pills-acaua01-tab" tabindex="0">
+                            <div class="tab-pane fade show active" id="v-pills-acaua01" role="tabpanel"
+                                aria-labelledby="v-pills-acaua01-tab" tabindex="0">
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Código SSR:</h7><h5>1621</h5></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Código SSR:</h7>
+                                        <h5 class="text-warning">1621</h5>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Matrícula</h7><h6>PR-CME</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Regra de Voo:</h7><h6>VFR</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de Voo:</h7><h6>Geral</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Matrícula</h7>
+                                        <h6 class="text-primary-emphasis">PR-CME</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Regra de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">VFR</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">Geral</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de ACFT:</h7><h6>AS50</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Turbulência:</h7><h6>L</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equipamentos:</h7><h6>S/C</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de ACFT:</h7>
+                                        <h6 class="text-primary-emphasis">AS50</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Turbulência:</h7>
+                                        <h6 class="text-primary-emphasis">L</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equipamentos:</h7>
+                                        <h6 class="text-primary-emphasis">S/C</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Velocidade:</h7><h6>N0100</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Nível:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Rota:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Velocidade:</h7>
+                                        <h6 class="text-primary-emphasis">N0100</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Nível:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Rota:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">OPR:</h7><h6>SDS-PB</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Autonomia:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">POB:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">OPR:</h7>
+                                        <h6 class="text-primary-emphasis">SDS-PB</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Autonomia:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">POB:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Cores e Marcas:</h7><h6>Preta e Branca com Listras Vermelhas</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7><h6>VHF e ELT</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Outros:</h7><h6>Primeiros Socorros</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Cores e Marcas:</h7>
+                                        <h6 class="text-primary-emphasis">Preta e Branca com Listras Vermelhas</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7>
+                                        <h6 class="text-primary-emphasis">VHF e ELT</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Outros:</h7>
+                                        <h6 class="text-primary-emphasis">Primeiros Socorros</h6>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="v-pills-acaua02" role="tabpanel" aria-labelledby="v-pills-acaua02-tab" tabindex="0">
+                            <div class="tab-pane fade" id="v-pills-acaua02" role="tabpanel"
+                                aria-labelledby="v-pills-acaua02-tab" tabindex="0">
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Código SSR:</h7><h5>1622</h5></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Código SSR:</h7>
+                                        <h5 class="text-warning">1622</h5>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Matrícula</h7><h6>PR-CPB</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Regra de Voo:</h7><h6>VFR</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de Voo:</h7><h6>Geral</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Matrícula</h7>
+                                        <h6 class="text-primary-emphasis">PR-CPB</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Regra de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">VFR</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">Geral</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de ACFT:</h7><h6>AS50</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Turbulência:</h7><h6>L</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equipamentos:</h7><h6>S/C</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de ACFT:</h7>
+                                        <h6 class="text-primary-emphasis">AS50</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Turbulência:</h7>
+                                        <h6 class="text-primary-emphasis">L</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equipamentos:</h7>
+                                        <h6 class="text-primary-emphasis">S/C</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Velocidade:</h7><h6>N0100</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Nível:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Rota:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Velocidade:</h7>
+                                        <h6 class="text-primary-emphasis">N0100</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Nível:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Rota:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">OPR:</h7><h6>SDS-PB</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Autonomia:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">POB:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">OPR:</h7>
+                                        <h6 class="text-primary-emphasis">SDS-PB</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Autonomia:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">POB:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Cores e Marcas:</h7><h6>Preta e Branca com Listras Vermelhas</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7><h6>VHF e ELT</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Outros:</h7><h6>Primeiros Socorros</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Cores e Marcas:</h7>
+                                        <h6 class="text-primary-emphasis">Preta e Branca com Listras Vermelhas</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7>
+                                        <h6 class="text-primary-emphasis">VHF e ELT</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Outros:</h7>
+                                        <h6 class="text-primary-emphasis">Primeiros Socorros</h6>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="v-pills-acaua03" role="tabpanel" aria-labelledby="v-pills-acaua03-tab" tabindex="0">
+                            <div class="tab-pane fade" id="v-pills-acaua03" role="tabpanel"
+                                aria-labelledby="v-pills-acaua03-tab" tabindex="0">
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Código SSR:</h7><h5>1624</h5></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Código SSR:</h7>
+                                        <h5 class="text-warning">1624</h5>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Matrícula</h7><h6>PR-PFO</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Regra de Voo:</h7><h6>VFR</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de Voo:</h7><h6>Geral</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Matrícula</h7>
+                                        <h6 class="text-primary-emphasis">PR-PFO</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Regra de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">VFR</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de Voo:</h7>
+                                        <h6 class="text-primary-emphasis">Geral</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Tipo de ACFT:</h7><h6>EC120</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Turbulência:</h7><h6>L</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equipamentos:</h7><h6>S/C</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Tipo de ACFT:</h7>
+                                        <h6 class="text-primary-emphasis">EC120</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Turbulência:</h7>
+                                        <h6 class="text-primary-emphasis">L</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equipamentos:</h7>
+                                        <h6 class="text-primary-emphasis">S/C</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Velocidade:</h7><h6>N0100</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Nível:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Rota:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Velocidade:</h7>
+                                        <h6 class="text-primary-emphasis">N0100</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Nível:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Rota:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">OPR:</h7><h6>SDS-PB</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Autonomia:</h7><h6>TBN</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">POB:</h7><h6>TBN</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">OPR:</h7>
+                                        <h6 class="text-primary-emphasis">SDS-PB</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Autonomia:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">POB:</h7>
+                                        <h6 class="text-primary-emphasis">TBN</h6>
+                                    </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Cores e Marcas:</h7><h6>Preta e Branca com Listras Vermelhas</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7><h6>VHF e ELT</h6></div>
-                                    <div class="col border rounded-2 m-1 p-1"><h7 class="text-secondary-emphasis">Outros:</h7><h6>Primeiros Socorros</h6></div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Cores e Marcas:</h7>
+                                        <h6 class="text-primary-emphasis">Preta e Branca com Listras Vermelhas</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Equip. Rádio e Sobrevivência:</h7>
+                                        <h6 class="text-primary-emphasis">VHF e ELT</h6>
+                                    </div>
+                                    <div class="col border rounded-2 m-1 p-1">
+                                        <h7 class="text-secondary-emphasis">Outros:</h7>
+                                        <h6 class="text-primary-emphasis">Primeiros Socorros</h6>
+                                    </div>
                                 </div>
                             </div>
 
@@ -215,10 +489,11 @@
                 </div>
             </div>
 
-        </article>        
-    </section>   
+        </article>
+    </section>
 
 </body>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/draw_map.js"></script>
+
 </html>

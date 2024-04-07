@@ -1,4 +1,3 @@
-let deslocamentoMapa = 34;
 
 function rotIN(x, y, angle, ctx){
     angle = angle - 90;
@@ -22,12 +21,14 @@ function eraseScreen(ctx){
 }
 
 function resetRotation(ctx){
+    let deslocamentoMapa = 34;
     ctx.translate(300, 250);
     ctx.rotate((-deslocamentoMapa * Math.PI) / 180);
     ctx.translate(-300, -250);
 }
 
 function rotateCanvas(ctx){
+    let deslocamentoMapa = 34;
     ctx.translate(300, 250);
     ctx.rotate((deslocamentoMapa * Math.PI) / 180);
     ctx.translate(-300, -250);
@@ -45,10 +46,6 @@ const appendAlert = (message, type) => {
 
   alertPlaceholder.append(wrapper)
 }
-
-document.getElementById('inputQDR').oninput = function() {
-    drawQdr();
-};
 
 function drawQdr(){
     var input = document.getElementById("inputQDR").value;    
@@ -383,3 +380,46 @@ function draw_map() {
 
     }
   }
+
+function saveData(botao){
+    var dados = document.getElementById(botao.parentElement.id);
+    for (var i = 0; i <= dados.children.length; i++){
+        if (dados.childNodes[i].tagName == 'A'){
+            if (botao.id == dados.childNodes[i].id){
+                localStorage.setItem(dados.childNodes[i].id, '1');
+                dados.childNodes[i].classList.remove('btn-outline-light');
+                dados.childNodes[i].classList.add('btn-outline-warning');
+                dados.childNodes[i].classList.add('border-warning');
+            } else {
+                localStorage.setItem(dados.childNodes[i].id, '0');
+                dados.childNodes[i].classList.remove('btn-outline-warning');
+                dados.childNodes[i].classList.add('btn-outline-light');
+                dados.childNodes[i].classList.remove('border-warning');
+            }
+        }    
+    }
+}
+
+function loadingData() {
+    var botoes = document.querySelectorAll(".freq");
+    var dadosSalvos = localStorage;
+    botoes.forEach(function(botao){
+        try{
+            if (dadosSalvos.getItem(botao.id) == '1'){
+                botao.classList.remove('btn-outline-light');
+                botao.classList.add('btn-outline-warning');
+                botao.classList.add('border-warning');
+            } else {            
+                botao.classList.remove('btn-outline-warning');
+                botao.classList.add('btn-outline-light');
+                botao.classList.remove('border-warning');
+            }
+        } catch{
+            
+        }
+    });
+}
+
+document.getElementById('inputQDR').oninput = function() {
+    drawQdr();
+};
