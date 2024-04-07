@@ -15,16 +15,18 @@
 
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map"
+                    <button class="nav-link " id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map"
                         type="button" role="tab" aria-controls="nav-map" aria-selected="true">Mapa</button>
                     <button class="nav-link  " id="nav-freq-tab" data-bs-toggle="tab" data-bs-target="#nav-freq"
                         type="button" role="tab" aria-controls="nav-freq" aria-selected="false" onclick="loadingData()">Coordenação</button>
                     <button class="nav-link" id="nav-caop-tab" data-bs-toggle="tab" data-bs-target="#nav-caop"
                         type="button" role="tab" aria-controls="nav-caop" aria-selected="false">CAOP 30-8</button>
+                    <button class="nav-link active" id="nav-ind-tab" data-bs-toggle="tab" data-bs-target="#nav-ind"
+                        type="button" role="tab" aria-controls="nav-ind" aria-selected="false">Indicativos</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab" tabindex="0">
+                <div class="tab-pane fade " id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab" tabindex="0">
                     <div class="container-fluid">
                         <div class="d-flex justify-content-center">
                             <canvas id="canvas" width="600" height="500" class="border rounded-2 m-1">
@@ -487,6 +489,83 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="tab-pane fade show active" id="nav-ind" role="tabpanel" aria-labelledby="nav-ind-tab" tabindex="0">
+                    <div class="border rounded-3 m-2 p-2">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Indicativo</th>
+                                <th scope="col">Nome</th>                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>PTFC</td>
+                                <td>Ana Carla</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>IBUC</td>
+                                <td>Ana Ester</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>NFDL</td>
+                                <td>Andreza</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">4</th>
+                                <td>NLQF</td>
+                                <td>Carlos Eduardo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">5</th>
+                                <td>JQFB</td>
+                                <td>Flávio</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td>OCZL</td>
+                                <td>Judenilson</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">7</th>
+                                <td>SWLD</td>
+                                <td>Mailson</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">8</th>
+                                <td>QYMU</td>
+                                <td>Naire</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">9</th>
+                                <td>JPAE</td>
+                                <td>Pedro Catete</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">10</th>
+                                <td>PZTX</td>
+                                <td>Pedro Chagas</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">11</th>
+                                <td>ZYBU</td>
+                                <td>Renan</td>
+                              </tr>
+                            </tbody>
+                          </table>
+    
+
+                    </div>
+                    
+             
+                    </div>
+                </div>
+
             </div>
 
         </article>
