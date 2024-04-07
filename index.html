@@ -15,18 +15,18 @@
 
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link " id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map"
+                    <button class="nav-link active" id="nav-map-tab" data-bs-toggle="tab" data-bs-target="#nav-map"
                         type="button" role="tab" aria-controls="nav-map" aria-selected="true">Mapa</button>
                     <button class="nav-link  " id="nav-freq-tab" data-bs-toggle="tab" data-bs-target="#nav-freq"
                         type="button" role="tab" aria-controls="nav-freq" aria-selected="false" onclick="loadingData()">Coordenação</button>
                     <button class="nav-link" id="nav-caop-tab" data-bs-toggle="tab" data-bs-target="#nav-caop"
                         type="button" role="tab" aria-controls="nav-caop" aria-selected="false">CAOP 30-8</button>
-                    <button class="nav-link active" id="nav-ind-tab" data-bs-toggle="tab" data-bs-target="#nav-ind"
+                    <button class="nav-link " id="nav-ind-tab" data-bs-toggle="tab" data-bs-target="#nav-ind"
                         type="button" role="tab" aria-controls="nav-ind" aria-selected="false">Indicativos</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade " id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab" tabindex="0">
+                <div class="tab-pane fade show active" id="nav-map" role="tabpanel" aria-labelledby="nav-map-tab" tabindex="0">
                     <div class="container-fluid">
                         <div class="d-flex justify-content-center">
                             <canvas id="canvas" width="600" height="500" class="border rounded-2 m-1">
@@ -490,7 +490,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade show active" id="nav-ind" role="tabpanel" aria-labelledby="nav-ind-tab" tabindex="0">
+                <div class="tab-pane fade " id="nav-ind" role="tabpanel" aria-labelledby="nav-ind-tab" tabindex="0">
                     <div class="border rounded-3 m-2 p-2">
                         <table class="table table-striped">
                             <thead>
