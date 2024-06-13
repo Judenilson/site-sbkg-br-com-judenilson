@@ -67,27 +67,29 @@
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
                                     onclick="drawLine(226, 'SBSV')">SBSV</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(140, 'SIFC')">SIFC</button>
+                                    onclick="drawLine(140, 'SIFC')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Coroa do Avião / Igarassu / PE">SIFC</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(47, 'SJBX')">SJBX</button>
+                                    onclick="drawLine(47, 'SJBX')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Severino Lopes / São José de Mipibu / RN">SJBX</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(47, 'SJFU')">SJFU</button>
+                                    onclick="drawLine(47, 'SJFU')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tabuleiro / Bananeiras / PB">SJFU</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(302, 'SJZA')">SJZA</button>
+                                    onclick="drawLine(302, 'SJZA')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Pedro Vieira Moreira / Cajazeiras / PB">SJZA</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(335, 'SNKB')">SNKB</button>
+                                    onclick="drawLine(335, 'SNKB')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aeroclube de Campina Grande / Campina Grande / PB">SNKB</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(209, 'SNRU')">SNRU</button>
+                                    onclick="drawLine(209, 'SNRU')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Caruaru / Caruaru / PE">SNRU</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(302, 'SNTS')">SNTS</button>
+                                    onclick="drawLine(302, 'SNTS')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aeroporto Brigadeiro Firmino Ayres / Patos / PB">SNTS</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(302, 'SNQD')">SNQD</button>
+                                    onclick="drawLine(302, 'SNQD')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Souza / Souza / PB">SNQD</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(98, 'SNWE')">SNWE</button>
+                                    onclick="drawLine(98, 'SNWE')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Clube Estância Ouro Verde / Santa Rita / PB">SNWE</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(46, 'SN7U')">SN7U</button>
+                                    onclick="drawLine(46, 'SN7U')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Soul João / Lagoa Seca / PB">SN7U</button>
                                 <button type="button" class="btn btn-outline-light m-1" id="locate"
-                                    onclick="drawLine(299, 'SI6U')">SI6U</button>
+                                    onclick="drawLine(299, 'SI6U')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aeroguedes / Santa Teresinha / PB">SI6U</button>
+                                <button type="button" class="btn btn-outline-light m-1" id="locate"
+                                    onclick="drawLine(252, 'SJI7')" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="BPX / Boqueirão / PB">SJI7</button>
                             </div>
                         </div>
                     </div>
@@ -912,8 +914,12 @@
         </article>
     </section>
 
-</body>
+</body>    
+<script src="assets/js/popper.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/draw_map.js"></script>
-
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
 </html>
